@@ -19,7 +19,7 @@ Util = require 'util'
 
 module.exports = (robot) ->
   #
-  robot.respond /profile\ remember\ (\w+)\ of\ (\w+)\ is\ (.*)$/i, (msg) ->
+  robot.respond /profile\ remember\ (.*)\ of\ (.*)\ is\ (.*)$/i, (msg) ->
   	key = msg.match[1].trim()
   	user = msg.match[2].trim()
   	value = msg.match[3].trim()
@@ -38,7 +38,7 @@ module.exports = (robot) ->
   	    msg.send 'I will never forget'
 
   #
-  robot.respond /profile\ forget\ (\w+)\ of\ (\w+)*$/i, (msg) ->
+  robot.respond /profile\ forget\ (.*)\ of\ (.*)$/i, (msg) ->
     key = msg.match[1].trim()
     user = msg.match[2].trim()
 
@@ -55,7 +55,7 @@ module.exports = (robot) ->
       msg.send 'Why make me like human?'
 
   #
-  robot.respond /profile\ recall\ (\w+)*$/i, (msg) ->
+  robot.respond /profile\ recall\ (.*)$/i, (msg) ->
   	user = msg.match[1].trim()
 
   	unless robot.brain.data.users[user]
@@ -66,7 +66,7 @@ module.exports = (robot) ->
       msg.send Util.inspect(robot.brain.data.users[user]['profile'], false, 4)
 
   #
-  robot.respond /profile\ recall\ (\w+)\ of\ (\w+)*$/i, (msg) ->
+  robot.respond /profile\ recall\ (.*)\ of\ (.*)$/i, (msg) ->
   	key = msg.match[1].trim()
   	user = msg.match[2].trim()
 
