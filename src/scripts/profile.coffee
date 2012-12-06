@@ -45,10 +45,12 @@ module.exports = (robot) ->
     unless robot.brain.data.users[user]
       msg.send "Who is ${user}?"
     unless robot.brain.data.users[user]['profile']
-      msg.send 'Not found profile'
+      msg.send "#{user} dose not has profile"
     else
       profile = robot.brain.data.users[user]['profile']
+
       delete profile[key]
+      delete robot.brain.data.user[user]['profile'] unless profile
 
       msg.send 'Why make me like human?'
 
@@ -59,7 +61,7 @@ module.exports = (robot) ->
   	unless robot.brain.data.users[user]
   		msg.send "Who is #{user}?"
   	unless robot.brain.data.users[user]['profile']
-  	  msg.send 'Not found profile'
+  	  msg.send "#{user} dose not has profile"
   	else
       msg.send Util.inspect(robot.brain.data.users[user]['profile'], false, 4)
 
@@ -71,7 +73,7 @@ module.exports = (robot) ->
   	unless robot.brain.data.users[user]
   		msg.send "Who is #{user}?"
   	unless robot.brain.data.users[user]['profile']
-  	  msg.send 'Not found profile'
+  	  msg.send '#{user} dose not has profile'
   	else
   	  profile = robot.brain.data.users[user]['profile']
   	  value = profile[key]
