@@ -19,7 +19,7 @@ Util = require 'util'
 
 module.exports = (robot) ->
   #
-  robot.respond /profile\ remember\ (.*)\ of\ (.*)\ is\ (.*)$/i, (msg) ->
+  robot.respond /profile\ remember\ (\w+)\ of\ (\w+)\ is\ (.*)$/i, (msg) ->
   	key = msg.match[1].trim()
   	user = msg.match[2].trim()
   	value = msg.match[3].trim()
@@ -38,14 +38,14 @@ module.exports = (robot) ->
   	    msg.send 'I will never forget'
 
   #
-  robot.respond /profile\ forget\ (.*)\ of\ (.*)$/i, (msg) ->
+  robot.respond /profile\ forget\ (\w+)\ of\ (\w+)*$/i, (msg) ->
     key = msg.match[1].trim()
     user = msg.match[2].trim()
 
     unless robot.brain.data.users[user]
       msg.send "Who is ${user}?"
     unless robot.brain.data.users[user]['profile']
-      msg.send "#{user} dose not has profile"
+      msg.send "#{user} dose not has profile."
     else
       profile = robot.brain.data.users[user]['profile']
 
@@ -55,31 +55,37 @@ module.exports = (robot) ->
       msg.send 'Why make me like human?'
 
   #
-  robot.respond /profile\ recall\ (.*)$/i, (msg) ->
+  robot.respond /profile\ recall\ (\w+)*$/i, (msg) ->
   	user = msg.match[1].trim()
 
   	unless robot.brain.data.users[user]
   		msg.send "Who is #{user}?"
   	unless robot.brain.data.users[user]['profile']
-  	  msg.send "#{user} dose not has profile"
+  	  msg.send "#{user} dose not has profile."
   	else
-      msg.send Util.inspect(robot.brain.data.users[user]['profile'], false, 4)
+      profile = robot.brain.data.users[user]['profile']
+      response = "Facts:\n"
+
+      for key, value of profile
+        response += "#{key} is #{value},\n"
+
+      msg.send response
 
   #
-  robot.respond /profile\ recall\ (.*)\ of\ (.*)$/i, (msg) ->
+  robot.respond /profile\ recall\ (\w+)\ of\ (\w+)*$/i, (msg) ->
   	key = msg.match[1].trim()
   	user = msg.match[2].trim()
 
   	unless robot.brain.data.users[user]
   		msg.send "Who is #{user}?"
   	unless robot.brain.data.users[user]['profile']
-  	  msg.send '#{user} dose not has profile'
+  	  msg.send "#{user} dose not has profile."
   	else
   	  profile = robot.brain.data.users[user]['profile']
   	  value = profile[key]
 
   	  unless value
-  	    msg.send "$#{user} dose not has #{key}"
+  	    msg.send "#{user} dose not has #{key}."
   	  else
-        response = "#{key} is #{value}"
+        response = "#{key} is #{value}."
         msg.send response
