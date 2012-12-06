@@ -15,6 +15,7 @@
 # Author:
 #   wiredcraft
 
+Util = require 'util'
 module.exports = (robot) ->
   #
   robot.respond /profile\ remember\ (\w+)\ of\ (\w+)\ is\ (.*)$/i, (msg) ->
@@ -45,14 +46,9 @@ module.exports = (robot) ->
   	    unless robot.brain.data.users[user]['profile']
   	    	msg.send 'Not found profile'
   	    else
-  	        response = ""
   	        profile = robot.brain.data.users[user]['profile']
 
-           for own key, value of profile
-               response += "#{key} #{value}"
-               response += "\n"
-
-           msg.send response
+           msg.send Util.inspect(profile, false, 4)
 
   #
   robot.respond /profile\ recall\ (\w+)\ of\ (\w+)*$/i, (msg) ->
