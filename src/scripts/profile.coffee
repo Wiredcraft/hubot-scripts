@@ -42,13 +42,10 @@ module.exports = (robot) ->
 
   	unless robot.brain.data.users[user]
   		msg.send "Who is #{user}?"
+  	unless robot.brain.data.users[user]['profile']
+  	  msg.send 'Not found profile'
   	else
-  	    unless robot.brain.data.users[user]['profile']
-  	    	msg.send 'Not found profile'
-  	    else
-  	        profile = robot.brain.data.users[user]['profile']
-
-           msg.send Util.inspect(profile, false, 4)
+      msg.send Util.inspect(robot.brain.data.users[user]['profile'], false, 4)
 
   #
   robot.respond /profile\ recall\ (\w+)\ of\ (\w+)*$/i, (msg) ->
@@ -57,15 +54,14 @@ module.exports = (robot) ->
 
   	unless robot.brain.data.users[user]
   		msg.send "Who is #{user}?"
+  	unless robot.brain.data.users[user]['profile']
+  	  msg.send 'Not found profile'
   	else
-  	    unless robot.brain.data.users[user]['profile']
-  	    	msg.send 'Not found profile'
-  	    else
-  	        profile = robot.brain.data.users[user]['profile']
-  	        value = profile[key]
+  	  profile = robot.brain.data.users[user]['profile']
+  	  value = profile[key]
 
-  	        unless value
-  	        	msg.send "$#{user} dose not has #{key}"
-  	        else
-               response = "#{key} is #{value}"
-               msg.send response
+  	  unless value
+  	    msg.send "$#{user} dose not has #{key}"
+  	  else
+        response = "#{key} is #{value}"
+        msg.send response
