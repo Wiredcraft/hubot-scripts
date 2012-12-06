@@ -45,6 +45,7 @@ module.exports = (robot) ->
   	    unless robot.brain.data.users[user]['profile']
   	    	msg.send 'Not found profile'
   	    else
+  	        response = "\n"
   	        profile = robot.brain.data.users[user]['profile']
            for own key, value of profile
                response += "#{key} #{value}"
