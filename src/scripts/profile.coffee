@@ -16,6 +16,7 @@
 #   wiredcraft
 
 Util = require 'util'
+
 module.exports = (robot) ->
   #
   robot.respond /profile\ remember\ (\w+)\ of\ (\w+)\ is\ (.*)$/i, (msg) ->
@@ -35,6 +36,21 @@ module.exports = (robot) ->
   	    robot.brain.data.users = users
 
   	    msg.send 'I will never forget'
+
+  #
+  robot.respond /profile\ forget\ (\w+)\ of\ (\w+)*$/i, (msg) ->
+    key = msg.match[1].trim()
+    user = msg.match[2].trim()
+
+    unless robot.brain.data.users[user]
+      msg.send "Who is ${user}?"
+    unless robot.brain.data.users[user]['profile']
+      msg.send 'Not found profile'
+    else
+      profile = robot.brain.data.users[user]['profile']
+      delete profile[key]
+
+      msg.send 'Why make me like human?'
 
   #
   robot.respond /profile\ recall\ (\w+)*$/i, (msg) ->
