@@ -9,6 +9,7 @@
 #
 # Commands:
 #   hubot profile remember <key> of <user> is <value>
+#   hubot profile forget <key> of <user>
 #   hubot profile recall <user>
 #   hubot profile recall <key> of <user>
 #
@@ -50,7 +51,7 @@ module.exports = (robot) ->
       profile = robot.brain.data.users[user]['profile']
 
       delete profile[key]
-      delete robot.brain.data.user[user]['profile'] unless profile
+      delete robot.brain.data.users[user]['profile'] unless profile
 
       msg.send 'Why make me like human?'
 
