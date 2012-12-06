@@ -53,7 +53,7 @@ module.exports = (robot) ->
                msg.send response
 
   #
-  robot.response /profile\ recall\ (\w+)\ of\ (\w+)*$/i, (msg) ->
+  robot.respond /profile\ recall\ (\w+)\ of\ (\w+)*$/i, (msg) ->
   	key = msg.match[1].trim()
   	user = msg.match[2].trim()
 
