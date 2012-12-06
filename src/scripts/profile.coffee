@@ -47,11 +47,12 @@ module.exports = (robot) ->
   	    else
   	        response = ""
   	        profile = robot.brain.data.users[user]['profile']
+
            for own key, value of profile
                response += "#{key} #{value}"
                response += "\n"
 
-               msg.send response
+           msg.send response
 
   #
   robot.respond /profile\ recall\ (\w+)\ of\ (\w+)*$/i, (msg) ->
